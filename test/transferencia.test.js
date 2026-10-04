@@ -5,8 +5,16 @@ const { obterToken } = require('../helpers/autenticacao.js');
 
 describe('Transferencias', () => {
     describe('POST/transferencias', () => {
+
+        let token;
+
+        // Capturar token de login - número 3 usando beforeEach
+        beforeEach(async () => {
+            token = await obterToken('julio.lima', '123456');
+        });
+
         it('Deve retornar 201 com uma mensagem de sucesso quando transferência >= 10 reais', async () => {
-            //Capturar token de login
+            //Capturar token de login - número 1
             // const respostaLogin = await request(process.env.BASE_URL)
             //     .post('/login')
             //     .set('Content-Type', 'application/json')
@@ -16,7 +24,8 @@ describe('Transferencias', () => {
             //     })
             //const token = respostaLogin.body.token;
 
-            const token = await obterToken('julio.lima', '123456');
+            //capturar token de login - número 2 usando helper
+            //const token = await obterToken('julio.lima', '123456');
 
             const resposta = await request(process.env.BASE_URL)
                 .post('/transferencias')
@@ -31,6 +40,7 @@ describe('Transferencias', () => {
             expect(resposta.status).to.equal(201);
             console.log(resposta.body);
         });
+
         it('Deve retornar 402 com uma mensagem de erro quando transferência < 10 reais', async () => {
             //Capturar token de login
             // const respostaLogin = await request(process.env.BASE_URL)
@@ -42,7 +52,8 @@ describe('Transferencias', () => {
             //     })
             // const token = respostaLogin.body.token;
 
-            const token = await obterToken('julio.lima', '123456');
+            //capturar token de login - número 2 usando helper
+            //const token = await obterToken('julio.lima', '123456');
 
             const resposta = await request(process.env.BASE_URL)
                 .post('/transferencias')
